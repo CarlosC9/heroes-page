@@ -1,0 +1,61 @@
+<div class="home-container">
+  <section class="list-heroes-card">
+    <mat-card style="height: 100%;">
+      <mat-card-content class="list-heroes-card-content">
+
+        <div class="list-heroes-card-header">
+          <span style="font-size: 1.4rem; font-weight: 500">
+            Lista de héroes
+          </span>
+          <div>
+            <button mat-mini-fab color="primary" (click)="onClickNewHero()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="list-heroes-search-input">
+          <input [(ngModel)]="searchName" style="outline: none !important;" placeholder="Buscar heroes"
+                 (keyup.enter)="resetPagination(); searchHeroes()"/>
+        </div>
+
+
+        <div class="list-heroes">
+          <ul style="list-style: unset; padding: 0; margin: 0">
+            <ng-container *ngIf="loadingListHeroes else loadingListHeroesTemplate">
+              <mat-spinner></mat-spinner>
+            </ng-container>
+            <ng-template #loadingListHeroesTemplate>
+              <ng-container *ngFor="let hero of listHeroes">
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 10px">
+                  <span>
+                    {{ hero.name | firstLetterUpperCase }}
+                  </span>
+                  <div style="display: flex; column-gap: 5px">
+                    <button mat-mini-fab color="primary" (click)="onClickEditHero(hero)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" (click)="onClickRemoveHero(hero)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </li>
+                <mat-divider></mat-divider>
+              </ng-container>
+            </ng-template>
+          </ul>
+        </div>
+
+        <mat-paginator [length]="totalItems"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       [pageIndex]="pageIndex"
+                       (page)="pageChange($event)"
+                       aria-label="Select page">
+        </mat-paginator>
+
+
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

@@ -1,0 +1,40 @@
+<div class="hero-form-container">
+
+  <ng-container *ngIf="loading else heroFormTemplate">
+    <mat-spinner></mat-spinner>
+  </ng-container>
+  <ng-template #heroFormTemplate>
+    <section class="heroe-form-card">
+      <mat-card style="height: 100%;">
+        <mat-card-content class="heroe-form-card-content">
+          <div>
+            <span style="font-size: 1.4rem; font-weight: 500">
+                Lista de héroes
+            </span>
+            <form [formGroup]="form" style="margin-top: 10px" (submit)="onAcceptForm()">
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" formControlName="name">
+              </mat-form-field>
+
+            </form>
+          </div>
+          <div style="display: flex; flex-direction: row-reverse; column-gap: 10px">
+            <button mat-raised-button color="primary" (click)="onAcceptForm()">
+              <ng-container *ngIf="hero else newButtonTemplate">
+                Modificar
+              </ng-container>
+              <ng-template #newButtonTemplate>
+                Nuevo
+              </ng-template>
+            </button>
+            <button mat-raised-button (click)="onCancelForm()">Cancelar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </ng-template>
+
+
+</div>
